@@ -36,10 +36,13 @@ plugin.wordCheck("Digit in word", function (ctx, word) {
 // Line-level checks.
 //
 
-plugin.lineCheck("HTML symbol", function (ctx, line) {
+plugin.lineCheck("Angled bracket with 'From'", function (ctx, line) {
 });
 
 plugin.lineCheck("Asterisk character", function (ctx, line) {
+});
+
+plugin.lineCheck("Capital \"S\"", function (ctx, line) {
 });
 
 plugin.lineCheck("Carat character", function (ctx, line) {
@@ -51,19 +54,22 @@ plugin.lineCheck("Control character", function (ctx, line) {
 plugin.lineCheck("Forward slash character", function (ctx, line) {
 });
 
+plugin.lineCheck("HTML symbol", function (ctx, line) {
+});
+
+plugin.lineCheck("Hypen at end of line", function (ctx, line) {
+});
+
+plugin.lineCheck("Long line", function (ctx, line) {
+});
+
+plugin.lineCheck("Missing paragraph break", function (ctx, line) {
+});
+
 plugin.lineCheck("Non-ASCII character", function (ctx, line) {
 });
 
 plugin.lineCheck("Non-ISO-8859 character", function (ctx, line) {
-});
-
-plugin.lineCheck("Tab character", function (ctx, line) {
-});
-
-plugin.lineCheck("Tilde character", function (ctx, line) {
-});
-
-plugin.lineCheck("Long line", function (ctx, line) {
 });
 
 plugin.lineCheck("Single character line", function (ctx, line) {
@@ -75,6 +81,9 @@ plugin.lineCheck("Spaced dash", function (ctx, line) {
 plugin.lineCheck("Spaced doublequote", function (ctx, line) {
 });
 
+plugin.lineCheck("Spaced em-dash", function (ctx, line) {
+});
+
 plugin.lineCheck("Spaced punctuation", function (ctx, line) {
 });
 
@@ -84,7 +93,13 @@ plugin.lineCheck("Spaced singlequote", function (ctx, line) {
 plugin.lineCheck("Starts with punctuation", function (ctx, line) {
 });
 
-plugin.lineCheck("Capital \"S\"", function (ctx, line) {
+plugin.lineCheck("Suspicious punctuation", function (ctx, line) {
+});
+
+plugin.lineCheck("Tab character", function (ctx, line) {
+});
+
+plugin.lineCheck("Tilde character", function (ctx, line) {
 });
 
 plugin.lineCheck("Unspaced bracket", function (ctx, line) {
@@ -93,17 +108,12 @@ plugin.lineCheck("Unspaced bracket", function (ctx, line) {
 plugin.lineCheck("Unspaced quotes", function (ctx, line) {
 });
 
+
 //
 // Paragraph-level checks.
 //
 
 plugin.paragraphCheck("Broken em-dash", function (ctx, para) {
-});
-
-plugin.paragraphCheck("Short line", function (ctx, para) {
-});
-
-plugin.paragraphCheck("Paragraph starts with lowercase", function (ctx, para) {
 });
 
 plugin.paragraphCheck("Mismatched curly brackets", function (ctx, para) {
@@ -122,6 +132,12 @@ plugin.paragraphCheck("Mismatched square brackets", function (ctx, para) {
 });
 
 plugin.paragraphCheck("No punctuation at paragraph end", function (ctx, para) {
+});
+
+plugin.paragraphCheck("Paragraph starts with lowercase", function (ctx, para) {
+});
+
+plugin.paragraphCheck("Short line", function (ctx, para) {
 });
 
 

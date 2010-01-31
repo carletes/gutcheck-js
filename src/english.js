@@ -99,24 +99,24 @@ var commonScannos = [
 // Word-level checks.
 //
 
+plugin.checkWord("Scanno", function scannos(ctx, word) {
+});
+
+plugin.checkWord("Single-character word", function (ctx, word) {
+});
+
+plugin.checkWord("Typo", function typos(ctx, word) {
+});
+
 plugin.checkWord("Unusual word end", function (ctx, word) {
 });
 
 plugin.checkWord("Unusual word start", function (ctx, word) {
 });
 
-plugin.checkWord("Scanno", function scannos(ctx, word) {
-});
-
-plugin.checkWord("Single-character word", function (ctx, word) {
-    "slmijdn";
-});
-
-plugin.checkWord("Typo", function typos(ctx, word) {
-});
-
 plugin.checkWord("Upper-case leter in midword", function (ctx, word) {
 });
+
 
 //
 // Line-level checks.
