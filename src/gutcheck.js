@@ -23,9 +23,7 @@
 
 var GutCheck = (function () {
 
-var lineChecks = [],
-    paragraphChecks = [],
-    wordChecks = [];
+var plugins = [];
 
 var settings = {
     openSingleQuote:  "'",
@@ -35,42 +33,31 @@ var settings = {
 };
 
 return {
-    lineChecks: function () {
-        for (var i = 0, n = arguments.length; i < n; ++i) {
-            lineCheck.push(arguments[i]);
-        }
+    plugins: plugins,
+
+    register: function (plugin) {
+        plugins.push(plugin);
     },
 
-    paragraphChecks: function () {
-        for (var i = 0, n = arguments.length; i < n; ++i) {
-            paragraphChecks.push(arguments[i]);
-        }
-    },
-
-    run: function (textData, context) {
-        var text = new Text(textData);
-        text.paragraphs.forEach(function (p) {
-            paragraphChecks.forEach(function (check) { check(context, p); });
-
-            p.lines.forEach(function (line) {
-                lineChecks.forEach(function (check) { check(context, line); });
-
-                line.words.forEach(function (w) {
-                    wordChecks.forEach(function (check) { check(context, word); });
+    run: function (ctx, text) {
+        plugins.forEach(function (p) {
+            if (p.active) {
+                text.paragraphs.forEach(function (para) {
+                    p.checkParagraph(ctx, para);
+                    para.lines.forEach(function (line) {
+                        p.checkLike(ctx, line);
+                    });
                 });
-            });
+                text.words.forEach(function (word) {
+                    p.checkWord(ctx, word);
+                });
+            }
         });
     },
 
     set: function (key, value) {
         if (settings.hasOwnProperty(key)) {
             settings[key] = value;
-        }
-    },
-
-    wordChecks: function () {
-        for (var i = 0, n = arguments.length; i < n; ++i) {
-            wordChecks.push(arguments[i]);
         }
     }
 };
