@@ -25,18 +25,13 @@ var GutCheck = (function () {
 
 var plugins = [];
 
-var settings = {
-    openSingleQuote:  "'",
-    closeSingleQuote: "'",
-    openDoubleQuote:  "\"",
-    closeDoubleQuote: "\""
-};
-
 return {
     plugins: plugins,
 
-    register: function (plugin) {
-        plugins.push(plugin);
+    newPlugin: function (name) {
+        var p = new GutCheck.Plugin(name);
+        plugins.push(p);
+        return p;
     },
 
     run: function (ctx, text) {
@@ -53,12 +48,6 @@ return {
                 });
             }
         });
-    },
-
-    set: function (key, value) {
-        if (settings.hasOwnProperty(key)) {
-            settings[key] = value;
-        }
     }
 };
 
