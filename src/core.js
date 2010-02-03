@@ -56,17 +56,24 @@ plugin.lineCheck("Control character", function (ctx, line) {
 });
 
 plugin.lineCheck("Forward slash character", function (ctx, line) {
+    var offset = line.text.indexOf("\\");
+    if (offset != -1) {
+        ctx.error(line, offset);
+    }
 });
 
 plugin.lineCheck("HTML symbol", function (ctx, line) {
 });
 
-plugin.lineCheck("Hypen at end of line", function (ctx, line) {
+plugin.lineCheck("Hyphen at end of line", function (ctx, line) {
+    if (/\-$/.exec(line.text)) {
+        ctx.error(line);
+    }
 });
 
 plugin.lineCheck("Long line", function (ctx, line) {
     if (line.text.length > 75) {
-        ctx.error(line);
+        ctx.error(line, line.text.length - 1);
     }
 });
 
@@ -104,6 +111,10 @@ plugin.lineCheck("Suspicious punctuation", function (ctx, line) {
 });
 
 plugin.lineCheck("Tab character", function (ctx, line) {
+    var offset = line.text.indexOf("\t");
+    if (offset != -1) {
+        ctx.error(line, offset);
+    }
 });
 
 plugin.lineCheck("Tilde character", function (ctx, line) {
@@ -142,6 +153,14 @@ plugin.paragraphCheck("No punctuation at paragraph end", function (ctx, para) {
 });
 
 plugin.paragraphCheck("Paragraph starts with lowercase", function (ctx, para) {
+    var line = para.lines[0];
+    var firstAlpha = /[A-Za-z]/.exec(line.text);
+    if (firstAlpha) {
+        firstAlpha = firstAlpha[0];
+        if (firstAlpha.toLowerCase() === firstAlpha) {
+            ctx.error(line);
+        }
+    }
 });
 
 plugin.paragraphCheck("Short line", function (ctx, para) {
