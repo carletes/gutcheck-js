@@ -78,26 +78,13 @@ var abbreviations = [
     "cit", "deg", "min", "chap", "oz", "mme", "mlle", "mssrs"
 ];
 
-var notAtStart = [
-    // Two-Letter combinations that rarely if ever start words, but are common
-    // scannos or otherwise common letter combinations.
-    "hr", "hl", "cb", "sb", "tb", "wb", "tl", "tn", "rn", "lt", "tj"
-];
-
-var notAtEnd = [
-    // Two-Letter combinations that rarely if ever end words, but are common
-    // scannos or otherwise common letter combinations.
-    "cb", "gb", "pb", "sb", "tb", "wh", "fr", "br", "qu", "tw", "gl",
-    "fl", "sw", "gr", "sl", "cl", "iy"
-];
+//
+// Word-level checks.
+//
 
 var commonScannos = [
     "cb", "gbt", "pbt", "tbs", "mrn", "ahle", "ihle", "tbi", "tbe", "ii"
 ];
-
-//
-// Word-level checks.
-//
 
 plugin.checkWord("Scanno", function scannos(ctx, word) {
 });
@@ -108,13 +95,37 @@ plugin.checkWord("Single-character word", function (ctx, word) {
 plugin.checkWord("Typo", function typos(ctx, word) {
 });
 
+var notAtEnd = [
+    // Two-Letter combinations that rarely if ever end words, but are common
+    // scannos or otherwise common letter combinations.
+    /^cb/i, /^gb/i, /^pb/i, /^sb/i, /^tb/i, /^wh/i, /^fr/i, /^br/i, /^qu/i,
+    /^tw/i, /^gl/i, /^fl/i, /^sw/i, /^gr/i, /^sl/i, /^cl/i, /^iy/i
+];
+
 plugin.checkWord("Unusual word end", function (ctx, word) {
+    notAtEnd.forEach(function (re) {
+        if (re.test(word)) {
+            ctx.error(word);
+        }
+    });
 });
+
+var notAtStart = [
+    // Two-Letter combinations that rarely if ever start words, but are common
+    // scannos or otherwise common letter combinations.
+    /^hr/i, /^hl/i, /^cb/i, /^sb/i, /^tb/i, /^wb/i, /^tl/i, /^tn/i, /^rn/i,
+    /^lt/i, /^tj/i
+];
 
 plugin.checkWord("Unusual word start", function (ctx, word) {
+    notAtStart.forEach(function (re) {
+        if (re.test(word)) {
+            ctx.error(word);
+        }
+    });
 });
 
-plugin.checkWord("Upper-case leter in midword", function (ctx, word) {
+plugin.checkWord("Uppercase leter in midword", function (ctx, word) {
 });
 
 
@@ -122,7 +133,11 @@ plugin.checkWord("Upper-case leter in midword", function (ctx, word) {
 // Line-level checks.
 //
 
-plugin.lineCheck("'I' for '!'", function (ctx, line) {
+plugin.lineCheck("'I\"' for '!\"'", function (ctx, line) {
+    var offset = line.indexOf("I\"");
+    if (offset > -1) {
+        ctx.error(line, offset);
+    }
 });
 
 //

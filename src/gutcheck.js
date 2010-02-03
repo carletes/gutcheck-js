@@ -28,6 +28,14 @@ var plugins = [];
 return {
     plugins: plugins,
 
+    activatePlugin: function (name) {
+        plugins.forEach(function (p) {
+            if (p.name === name) {
+               p.active = true;
+            }
+        });
+    },
+
     newPlugin: function (name) {
         var p = new GutCheck.Plugin(name);
         plugins.push(p);
@@ -40,7 +48,7 @@ return {
                 text.paragraphs.forEach(function (para) {
                     p.checkParagraph(ctx, para);
                     para.lines.forEach(function (line) {
-                        p.checkLike(ctx, line);
+                        p.checkLine(ctx, line);
                     });
                 });
                 text.words.forEach(function (word) {

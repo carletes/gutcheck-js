@@ -37,6 +37,10 @@ plugin.wordCheck("Digit in word", function (ctx, word) {
 //
 
 plugin.lineCheck("Angled bracket with 'From'", function (ctx, line) {
+    var offset = line.text.indexOf(">From");
+    if (offset !== -1) {
+        ctx.error(line, offset);
+    }
 });
 
 plugin.lineCheck("Asterisk character", function (ctx, line) {
@@ -61,6 +65,9 @@ plugin.lineCheck("Hypen at end of line", function (ctx, line) {
 });
 
 plugin.lineCheck("Long line", function (ctx, line) {
+    if (line.text.length > 75) {
+        ctx.error(line);
+    }
 });
 
 plugin.lineCheck("Missing paragraph break", function (ctx, line) {
@@ -138,6 +145,19 @@ plugin.paragraphCheck("Paragraph starts with lowercase", function (ctx, para) {
 });
 
 plugin.paragraphCheck("Short line", function (ctx, para) {
+    var lines = para.lines;
+    // Do not check last lines of paragraphs (nor paragraphs with a single
+    // line).
+    lines.slice(0, lines.length - 1).forEach(function (line) {
+        var text = line.text;
+        if (/^\s/.test(text)) {
+            // Skip indented lines
+            return;
+        }
+        if (text.length < 55) {
+            ctx.error(line);
+        }
+    });
 });
 
 
