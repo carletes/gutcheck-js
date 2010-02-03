@@ -120,7 +120,7 @@ test("Words", function () {
     equals(words[1].text, "bar");
     equals(words[1].lineNumber, 0);
 
-    words = new GutCheck.Text("\tfoo    bar").words;
+    words = new GutCheck.Text("  foo    bar").words;
     equals(words.length, 2);
     equals(words[0].text, "foo");
     equals(words[0].lineNumber, 0);

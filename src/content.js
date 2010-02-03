@@ -30,9 +30,12 @@ var Word = function (text, lineNumber) {
 
 
 var Line = function (text, lineNumber) {
+    var indent = /(^\s+)/.exec(text);
+    var lead = indent ? indent[0] : "";
     this.text = text.trim();
     this.lineNumber = lineNumber;
     this.parse();
+    this.text = lead + this.text;
 }
 
 Line.prototype.parse = function () {
